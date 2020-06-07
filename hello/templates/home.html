@@ -1,8 +1,105 @@
-{% extends 'base.html' %}
-{% block content %}
 
 
-        <h1>개허접 가오징어즈 홈에 오신 걸 환영합니다</h1>
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가오징어즈</title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <style>
+    .container {
+        font-family: 'Open Sans', sans-serif;
+        
+    }
+    #gao {
+            height: 50em;
+            background-image: url('https://t1.daumcdn.net/cfile/blog/996E373A5E324B9311');
+            background-repeat: repeat;
+            font-family: 'Nanum Pen Script', cursive;
+            text-align: center;
+            
+    }
+    .gaofont1 {
+            color: #FA5882;
+    }
+    </style>
+
+    
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            <strong>Gaozing</strong>
+          </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+            </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+            <a class="nav-item nav-link" href="{% url 'portfoliohome' %}">Album</a>
+            <a class="nav-item nav-link" href="{% url 'bloghome'%}">Guest Book</a>
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            환영합니다. {{ user.username }} 님!</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url 'blogpost' %}">글쓰기</a>
+                <a class="dropdown-item" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                <form id="logout" method="POST" action="{% url 'accountslogout' %}">
+                    {% csrf_token %} <input type="hidden"/>
+                </form>
+            </div>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{% url 'accountssignup' %}">Sign up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-item nav-link" href="{% url 'accountslogin' %}">Log in</a>
+            </li>
+            {% endif %}
+            </div>
+        </div>
+
+        
+    </div>
+    </nav>
+        <div class="container" id="gao">
+        <br>
+
+        <iframe width="4%" height="20" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/478642968&amp;color=%23e08cb0"></iframe>
+           
 
 
-{% endblock content %}
+        <h1>개허접 <span class="gaofont1">가오징어즈</span> 홈에 오신 걸 환영합니다</h1>
+
+        <img src="https://img1.daumcdn.net/thumb/R720x0/?fname=http%3A%2F%2Ft1.daumcdn.net%2Fliveboard%2Fshare%2Fd0d9782bd539405fb50a814f01d4d5ef.png" alt="황제" height="15%"/>
+        <img src="https://1.gall-img.com/hygall/files/attach/images/82/838/968/233/84fcfeb190387f655c5c351e88f7537d.jpg" height="15%" alt="너드">
+        <img src="https://lh3.googleusercontent.com/proxy/-buk0qNKFLroQwkzf32htNTWJs-9bCKrHZ_VVNa7_dnPbh1nvYnSU6J_MJU9iEYuLREgZm1oRXRu0qtWJ8chwMm9CCZ0YVuGNgxTGHmZw2zG" height="15%" alt="체리">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSGihYniX7ITjrvUV3WtobEBMMW2Lh3duA_LqQbyIacuM2e-c7w&usqp=CAU" height="15%" alt="퍼피">
+
+
+        </div>
+
+    <!-- 템플릿 변수 {{ blogs }}는 리스트 형식의 쿼리셋 객체
+        {{ blogs.all }} 구문 사용해 객체에 있는 모든 쿼리셋 가져와 출력!
+        객체.count(), 객체.first(), 객체.last() 등 다양한 메소드 있음 -->
+
+        <!-- JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>
